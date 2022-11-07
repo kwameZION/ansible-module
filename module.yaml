@@ -1,0 +1,26 @@
+---
+- hosts: jessinventory
+  tasks:
+    - name: install packages
+      become: true
+      become_user: root
+      apt:
+        state: latest
+        name:
+          - vim
+
+
+- hosts: jessinventory
+  tasks:
+    - name: Download google chrome
+      become: true
+      become_user: root
+      get_url:
+        url: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+        dest: /tmp/
+        mode: '0440'
+    - name: Install a .deb package
+      become: true
+      become_user: root
+      apt:
+        deb: /tmp/google-chrome-stable_current_amd64.deb
