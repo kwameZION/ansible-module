@@ -1,0 +1,41 @@
+---
+- hosts: jessinventory
+  tasks:
+    - name: Ensure group "gruppeA" exists with correct gid
+      become: true
+      become_user: root
+      group:
+        name: gruppeA
+        state: present
+        gid: 12345
+
+
+    - name: Ensure group "gruppeB" exists with correct gid
+      become: true
+      become_user: root
+      group:
+        name: gruppeB
+        state: present
+        gid: 54321
+
+    
+    - name: Add the user 'user2' to gruppe A und B
+      become: true
+      become_user: root
+      user:
+       name: user2
+       comment: User 2
+       password:  12345
+       password_lock: yes
+       uid: 12121
+       groups:
+         - gruppeA
+         - gruppeB
+
+    - name: Remove the user 'user2'
+      become: true
+      become_user: root
+      user:
+       name: user2
+       state: absent
+       remove: yes
