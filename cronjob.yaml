@@ -18,7 +18,7 @@
         cache_valid_time: 3600
         force_apt_get: true
 
-    - name: Creates a cron file under /etc/cron.d
+    - name: make date entries with cronjob
       cron:
          name: datetime
          minute: "*/5"
