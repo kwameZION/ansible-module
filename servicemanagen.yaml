@@ -1,0 +1,20 @@
+---
+- name: cronjob playbook
+  hosts: jessinventory
+  become: true
+  become_user: root
+  tasks:
+    - name: Stop service ufw, if running
+      systemd:
+        name: ufw
+        state: stopped
+
+    - name: start service ufw, if running
+      systemd:
+        name: ufw
+        state: started
+
+    - name: restart service ssh, if running
+      systemd:
+        name: ssh
+        state: restarted
