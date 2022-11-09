@@ -1,0 +1,25 @@
+---
+- name: cronjob playbook
+  hosts: jessinventory
+  become: true
+  become_user: root
+  tasks:
+    - name: Update AnsibleVm hourly
+      cron:
+       name: update AnsibleVm
+       special_time: hourly
+       job: apt-get update
+       state: present
+
+    - name: "Update cache & Full system update"
+      apt:
+        update_cache: true
+        upgrade: dist
+        cache_valid_time: 3600
+        force_apt_get: true
+
+    - name: Creates a cron file under /etc/cron.d
+      cron:
+         name: datetime
+         minute: "*/5"
+         job: date >> /tmp/datetime.txt
