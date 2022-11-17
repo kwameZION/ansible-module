@@ -1,0 +1,38 @@
+  hosts: azure
+  become: yes
+  tasks:
+    - user:
+        name: Albert
+        uid: 19111
+        password_lock: yes
+        groups: groupC
+        state: present
+    - user:
+        name: Alfred
+        uid: 22022
+        password_lock: no
+        groups: groupB
+        state: present
+    - user:
+        name: Anna
+        uid: 39333
+        password_lock: yes
+        groups: groupA
+        state: present
+    - user:
+        name: Benedikt
+        uid: 42444
+        password_lock: no
+        groups: groupD
+        state: present
+
+    - name: Run Bash Script
+      hosts: azure
+      become: yes
+      tasks:
+    - name: Print simple message
+      debug:
+        msg: Hello There!
+
+    - name: Run Hello World Script
+      script: ./hello-world.sh
